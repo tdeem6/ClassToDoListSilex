@@ -19,10 +19,16 @@ class Task
         return $this->description;
     }
 
-    //Store tasks to the list_of_tasks array
+    //Store tasks to the list_of_tasks key of the $_SESSION super global array
     function save()
     {
+        array_push($_SESSION['list_of_tasks'], $this);
+    }
 
+    //static method to loop through all saved tasks
+    static function getAll()
+    {
+        return $_SESSION['list_of_tasks'];
     }
 }
 ?>
