@@ -18,5 +18,11 @@ class Task
     {
         return $this->description;
     }
+
+    //Store tasks to the list_of_tasks array
+    function save()
+    {
+
+    }
 }
 ?>
