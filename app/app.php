@@ -3,20 +3,21 @@
     require_once __DIR__.'/../src/Task.php';
 
     session_start();
+
     if (empty($_SESSION['list_of_tasks'])) {
         $_SESSION['list_of_tasks'] = array();
     }
 
     $app = new Silex\Application();
+
     $app->get("/", function() {
 
-        $output = "";
+        $output = "<h1>To Do List</h1>";
 
         $all_tasks = Task::getAll();
 
         if (!empty($all_tasks)) {
             $output .= "
-                <h1>To Do List</h1>
                 <p>Here are all your tasks:</p>
                 ";
 
@@ -53,6 +54,15 @@
             <h1>You created a task!</h1>
             <p>" . $task->getDescription() . "</p>
             <p><a href='/'>View your list of things to do.</a></p>
+        ";
+    });
+
+    $app->post("/delete_tasks", function() {
+        Task::deleteAll();
+
+        return "
+            <h1>List cleared!</h1>
+            <p><a href='/'>Home</a></p>
         ";
     });
 
